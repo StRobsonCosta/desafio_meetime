@@ -7,8 +7,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Bean
-    public WebClient hubspotClient() {
+    @Bean(name = "hubspotWebClient")
+    public WebClient hubspotWebClient() {
         return WebClient.builder()
                 .baseUrl("https://api.hubapi.com")
                 .build();

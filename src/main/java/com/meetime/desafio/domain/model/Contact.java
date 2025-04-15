@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class Contato {
+public class Contact {
 
-    private String nome, sobreNome, email;
+    private String firstname, lastname, email;
 
 }

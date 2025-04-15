@@ -20,8 +20,8 @@ public class OAuthController {
     }
 
     @GetMapping("/callback")
-    public void callback(@RequestParam String code) {
-        oAuthUseCase.handleCallback(code);
+    public String callback(@RequestParam String code) {
+        return oAuthUseCase.handleCallback(code);
     }
 }
 

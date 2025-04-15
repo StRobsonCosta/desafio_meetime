@@ -11,7 +11,7 @@ public class HubspotWebhookController {
 
     @PostMapping
     public void handleWebhook(@RequestBody String payload) {
-        // o Ideal é criar DTO para deserializar e validar.
+        //  criar DTO para deserializar e validar.
         System.out.println("Received webhook payload: " + payload);
     }
 }
