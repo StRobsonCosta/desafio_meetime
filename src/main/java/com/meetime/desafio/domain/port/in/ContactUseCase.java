@@ -1,4 +1,4 @@
-package com.meetime.desafio.application.usecase;
+package com.meetime.desafio.domain.port.in;
 
 import com.meetime.desafio.application.dto.ContactDto;
 import com.meetime.desafio.domain.model.Contact;

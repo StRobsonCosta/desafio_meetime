@@ -6,7 +6,9 @@ import com.meetime.desafio.application.dto.HubspotResponse;
 import com.meetime.desafio.domain.model.Contact;
 import com.meetime.desafio.domain.port.out.HubspotClientPort;
 import com.meetime.desafio.infrastructure.hubspot.mapper.HubspotContactMapper;
-import com.meetime.desafio.infrastructure.persistence.TokenStore;
+import com.meetime.desafio.infrastructure.token.TokenStore;
+import com.meetime.desafio.shared.exception.TokenExchangeException;
+import com.meetime.desafio.shared.exception.TokenNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -27,9 +29,9 @@ public class HubspotClient implements HubspotClientPort {
 
     @Override
     public ContactDto createContact(Contact contact) {
-        if (!tokenStore.hasToken()) {
-            throw new IllegalStateException("Token de acesso não encontrado. Faça a autenticação OAuth.");
-        }
+        if (!tokenStore.hasToken())
+            throw new TokenNotFoundException("Token de acesso não encontrado. Faça a autenticação OAuth.");
+
 
         Map<String, Object> payload = Map.of(
                 "properties", Map.of(
@@ -48,7 +50,7 @@ public class HubspotClient implements HubspotClientPort {
                 .block();
 
         if (Objects.isNull(response) || Objects.isNull(response.getProperties()))
-            throw new IllegalStateException("Erro ao criar contato no HubSpot");
+            throw new TokenExchangeException("Erro ao criar contato no HubSpot");
 
         return HubspotContactMapper.toDto(response);
     }

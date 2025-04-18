@@ -11,7 +11,7 @@ public class HubspotWebhookController {
 
     @PostMapping
     public void handleWebhook(@RequestBody String payload) {
-        //  criar DTO para deserializar e validar.
         System.out.println("Received webhook payload: " + payload);
+        System.out.println("Chamando Service para Disparo de Notificação -Kafka etc");
     }
 }

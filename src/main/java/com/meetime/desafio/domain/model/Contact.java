@@ -1,9 +1,7 @@
 package com.meetime.desafio.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter
@@ -11,6 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Contact {
 
+    @NotNull
     private String firstname, lastname, email;
 
 }

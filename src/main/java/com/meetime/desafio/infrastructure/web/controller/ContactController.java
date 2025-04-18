@@ -1,7 +1,7 @@
 package com.meetime.desafio.infrastructure.web.controller;
 
 import com.meetime.desafio.application.dto.ContactDto;
-import com.meetime.desafio.application.usecase.ContactUseCase;
+import com.meetime.desafio.domain.port.in.ContactUseCase;
 import com.meetime.desafio.domain.model.Contact;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
