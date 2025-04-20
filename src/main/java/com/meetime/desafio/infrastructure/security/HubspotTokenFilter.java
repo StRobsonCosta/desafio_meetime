@@ -46,7 +46,6 @@ public class HubspotTokenFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(BEARER_PREFIX.length());
-        log.info("Token em Substring {}", token);
 
         Boolean isValid = tokenValidator.isTokenValid(token).block();
         log.info("Status do Token: {}", isValid);
@@ -67,6 +66,9 @@ public class HubspotTokenFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.startsWith("/api/oauth");
+        return path.startsWith("/api/oauth")||
+                path.startsWith("/api/webhooks/hubspot") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs");
     }
 }

@@ -20,18 +20,17 @@ public class OAuthController {
     private final OAuthUseCase oAuthUseCase;
 
     @GetMapping("/authorize")
-    public ResponseEntity<Void> authorize() {
+    public ResponseEntity<String> authorize() {
         String redirectUrl = oAuthUseCase.generateAuthorizationUrl();
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create(redirectUrl))
-                .build();
+
+        return ResponseEntity.ok(redirectUrl);
     }
 
     @GetMapping("/callback")
-    public ResponseEntity<String> callback(@RequestParam @NonNull String code, @RequestParam String state) {
+    public ResponseEntity<String> callback(@RequestParam @NonNull String code) {
         try {
-            String token = oAuthUseCase.handleCallback(code, state);
-            return ResponseEntity.ok("Token processado com sucesso." + token);
+            String token = oAuthUseCase.handleCallback(code);
+            return ResponseEntity.ok(token);
         } catch (IllegalStateException e) {
             return ResponseEntity.badRequest().body("Erro ao processar o token: " + e.getMessage());
         }

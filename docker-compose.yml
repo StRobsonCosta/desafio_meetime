@@ -1,0 +1,43 @@
+services:    
+
+  app:
+    build: .
+    container_name: meeTime
+    ports:
+      - "8081:8081"
+    depends_on:
+      redis:
+        condition: service_started
+    environment:
+      - HUBSPOT_CLIENT_ID
+      - HUBSPOT_CLIENT_SECRET 
+      - SPRING_PROFILES_ACTIVE=hml 
+      - SPRING_REDIS_HOST=redis 
+    networks:
+      - api-meetime
+
+      
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis-meeTime
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "", "--notify-keyspace-events", "Ex", "--maxmemory", "512mb", "--maxmemory-policy", "allkeys-lru"]
+    networks:
+      - api-meetime
+    volumes:
+      - redis_data:/data/db
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s     
+
+networks:
+  api-meetime:
+    driver: bridge
+
+
+volumes:
+  redis_data:
