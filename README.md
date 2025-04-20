@@ -26,6 +26,20 @@ Este projeto é uma API desenvolvida em **Java com Spring Boot** para realizar a
 - JUnit 5 + Mockito
 - HubSpot OAuth2
 - Redis
+- CloudFlare (para tunel de domínio ao Localhost) para config de Webhook.
+
+---
+
+## Outros Recursos
+
+- É Necessário criar uma conta no hubspot para realizar a autenticação.
+ 
+ Para Devs:
+- Criar tunel de Domínio para localhost:
+   ```bash
+   cloudflared tunnel --url http://localhost:8081
+   ```
+- Configurar o Webhooks no Hubspot com o endereço fornecido pelo Cloudflare
 
 ---
 
